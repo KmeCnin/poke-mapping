@@ -3,3 +3,10 @@ host = localhost
 dbname = poke-mapping
 user = root
 pass = 
+
+[environment]
+debug = false
+root = /poke-mapping
+
+[api]
+google_maps = YOUR_API_KEY

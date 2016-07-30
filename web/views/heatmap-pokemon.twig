@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ pokedex[pokemon_id] }} - Pokemon - Heatmap - PokeMap</title>
+        <link rel="stylesheet" type="text/css" href="{{ config['root'] }}/web/styles/layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ config['root'] }}/web/styles/style.css">
+    </head>
+
+    <body id="heatmap">
+        <nav>
+            <select onchange="window.location='../../heatmap/pokemon/'+this.value">
+                {% for id, name in pokedex %}
+                    <option value="{{ id }}"{% if id == pokemon_id %} selected{% endif %}>
+                        {{ name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <img class="pokemon-picture" src="http://assets.pokemon.com/assets/cms2/img/pokedex/detail/{{ "%03d"|format(pokemon_id) }}.png">
+        </nav>
+        <div id="map"></div>
+        
+        <script>
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 13,
+                    center: {lat: 48.861096, lng: 2.337256},
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                });
+
+                heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: [{% for key, dot in heatmap %}
+                        {% if not loop.first %},{% endif %}
+                        new google.maps.LatLng('{{ dot['latitude'] }}', '{{ dot['longitude'] }}')
+                    {% endfor %}],
+                    map: map
+                });
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ config['google_maps'] }}&signed_in=true&libraries=visualization&callback=initMap"></script>
+    </body>
+</html>
