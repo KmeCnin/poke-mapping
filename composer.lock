@@ -4,61 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be24b67cd4b786b367967b53f52482a2",
-    "content-hash": "0b8fed88ae308c0236416cf5c50ec8d4",
+    "hash": "ac681f37a3008fc4bdf29f1e0d882222",
+    "content-hash": "dee0d787a336759591437a96be80000a",
     "packages": [
-        {
-            "name": "danrovito/pokephp",
-            "version": "1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DanRovito/pokephp.git",
-                "reference": "cd55b150b1f58f936a851511cd085e2597d3422c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DanRovito/pokephp/zipball/cd55b150b1f58f936a851511cd085e2597d3422c",
-                "reference": "cd55b150b1f58f936a851511cd085e2597d3422c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.8.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PokePHP\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dan Rovito",
-                    "email": "danrovito@gmail.com"
-                }
-            ],
-            "description": "Pokeapi PHP Wrapper",
-            "keywords": [
-                "php",
-                "pokeapi",
-                "pokemon"
-            ],
-            "time": "2016-07-17 03:28:10"
-        },
         {
             "name": "pimple/pimple",
             "version": "v3.0.2",
