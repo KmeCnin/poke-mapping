@@ -6,7 +6,7 @@ pass =
 
 [environment]
 debug = false
-root = /poke-mapping
+webroot = /poke-mapping/web
 
 [api]
 google_maps = YOUR_API_KEY
