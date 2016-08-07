@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{{ pokedex[pokemon_id] }} - Pokemon - Heatmap - PokeMap</title>
+{#        <title>{{ pokedex[pokemon_id] }} - Pokemon - Heatmap - PokeMap</title>#}
         <link rel="stylesheet" type="text/css" href="{{ config['webroot'] }}/styles/layout.css">
         <link rel="stylesheet" type="text/css" href="{{ config['webroot'] }}/styles/style.css">
     </head>
@@ -10,11 +10,30 @@
     <body id="heatmap">
         <nav>
             <select onchange="window.location='../../heatmap/pokemon/'+this.value">
+                <option></option>
                 {% for id, name in pokedex %}
                     <option value="{{ id }}"{% if id == pokemon_id %} selected{% endif %}>
                         {{ name }}
                     </option>
                 {% endfor %}
+            </select>
+            <select onchange="window.location='../../heatmap/pokemon/'+this.value">
+                <option></option>
+                    <option value="common"{% if 'common' == pokemon_id %} selected{% endif %}>
+                        Common
+                    </option>
+                    <option value="uncommon"{% if 'uncommon' == pokemon_id %} selected{% endif %}>
+                        Uncommon
+                    </option>
+                    <option value="rare"{% if 'rare' == pokemon_id %} selected{% endif %}>
+                        Rare
+                    </option>
+                    <option value="very-rare"{% if 'very-rare' == pokemon_id %} selected{% endif %}>
+                        Very rare
+                    </option>
+                    <option value="ultra-rare"{% if 'ultra-rare' == pokemon_id %} selected{% endif %}>
+                        Ultra rare
+                    </option>
             </select>
             <img class="pokemon-picture" src="http://assets.pokemon.com/assets/cms2/img/pokedex/detail/{{ "%03d"|format(pokemon_id) }}.png">
         </nav>

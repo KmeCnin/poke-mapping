@@ -20,15 +20,51 @@ $app->get(
         );
         $pdo->exec("SET CHARACTER SET utf8");
         
-        // Get heatmap
-        $query = $pdo->prepare(
-            'SELECT latitude, longitude FROM pokemon WHERE pokemon_id = :id'
-        );
-        $query->execute([':id' => $id]);
+        if (is_numeric($id)) {
+            // Get heatmap of a pokemon
+            $query = $pdo->prepare('
+                SELECT latitude, longitude
+                FROM pokemon
+                WHERE pokemon_id = :id
+            ');
+            $query->execute([':id' => $id]);
+        } elseif (is_string($id)) {
+            // Get heatmap by rarity
+            $rarities = [];
+            switch ($id) {
+                case 'common':
+                    $rarities[] = 'Common';
+                case 'uncommon':
+                    $rarities[] = 'Uncommon';
+                case 'rare':
+                    $rarities[] = 'Rare';
+                case 'very-rare':
+                    $rarities[] = 'Very rare';
+                case 'ultra-rare':
+                    $rarities[] = 'Ultra rare';
+                    break;
+            }
+            $query = $pdo->prepare('
+                SELECT latitude, longitude
+                FROM pokemon
+                INNER JOIN pokedex
+                ON pokemon.pokemon_id = pokedex.id
+                WHERE pokedex.rarity
+                IN('.implode(', ', array_fill(0, count($rarities), '?')).')
+            ');
+            $query->execute($rarities);
+        } else {
+            throw new Exception('Invalid id or rarity.');
+        }
         $heatmap = $query->fetchAll();
         
         // Get pokedex data
-        $query = $pdo->query('SELECT id, name FROM pokedex WHERE id <= 151');
+        $query = $pdo->query('
+            SELECT id, name_fr
+            FROM pokedex
+            WHERE id <= 151
+            ORDER BY name_fr
+        ');
         $pokedex = $query->fetchAll(PDO::FETCH_KEY_PAIR);
         
         return $app['twig']->render('heatmap-pokemon.twig', array(
